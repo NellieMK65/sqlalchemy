@@ -17,3 +17,5 @@ class User(Base):
     id = Column(Integer(), primary_key=True)
     first_name = Column(Text(), nullable=False) # NOT NULL
     email = Column(VARCHAR(), nullable=False, unique=True) # NOT NULL, UNIQUE
+    phone = Column(Integer(), nullable=True, unique=True) # NOT NULL, UNIQUE
+
