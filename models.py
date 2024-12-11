@@ -1,6 +1,15 @@
 # define our tables using OOP + sqlalchemy
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Text, Integer, VARCHAR
+from sqlalchemy import create_engine, Column, Text, Integer, VARCHAR
+from sqlalchemy.orm import sessionmaker
+
+# connect to the the db using sessionmaker (similar to sqlite conn)
+engine = create_engine('sqlite:///app.db', echo=True)
+
+# create a session
+Session = sessionmaker(bind=engine)
+
+db = Session()
 
 # create a base model that all our models are going to inherit from
 Base = declarative_base()
@@ -19,3 +28,5 @@ class User(Base):
     email = Column(VARCHAR(), nullable=False, unique=True) # NOT NULL, UNIQUE
     phone = Column(Integer(), nullable=True, unique=True) # NOT NULL, UNIQUE
 
+    def __repr__(self):
+        return f"(User {self.id}: Firstname: {self.first_name}, Email: {self.email}, Phone: {self.phone})"
